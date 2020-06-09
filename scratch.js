@@ -18,15 +18,15 @@ class LinkedList {
   }
 
   insertLast(item) {
-    let lastNode = this.head;
+    let tempNode = this.head;
 
-    if (lastNode.next === null) {
+    if (tempNode.next === null) {
       insertFirst(item);
     } else {
-      while (lastNode.next !== null) {
-        lastNode = lastNode.next;
+      while (tempNode.next !== null) {
+        tempNode = tempNode.next;
       }
-      lastNode.next = new _Node(item, null);
+      tempNode.next = new _Node(item, null);
     }
   }
 
@@ -79,7 +79,7 @@ class LinkedList {
       currentNode = currentNode.next;
     }
 
-    if (currNode === null) {
+    if (currentNode === null) {
       console.log("Item is not found.");
       return;
     }
