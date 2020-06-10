@@ -7,13 +7,13 @@ class LinkedList {
   }
 
   insertFirst(item) {
-    // {Question} How do I add an IF statement, if there is a head?
     if (this.head !== null) {
-      const newHead = new _Node(item, this.head);
-      let currentNode = this.head;
+      const newHead = new _Node(item);
+      let oldHead = this.head;
 
-      currentNode.prev = newHead;
-      newHead.next = currentNode;
+      oldHead.prev = newHead;
+      newHead.next = oldHead;
+      this.head = newHead;
     } else {
       this.head = new _Node(item, this.head);
     }
@@ -22,14 +22,15 @@ class LinkedList {
   }
 
   insertLast(item) {
-    if (this.head === null) {
+    if (!this.head) {
       this.insertFirst(item);
     } else {
       let tempNode = this.head;
       while (tempNode.next !== null) {
         tempNode = tempNode.next;
       }
-      tempNode.next = new _Node(item, null);
+      // *** I have no idea why prev becomes [Circular] ***
+      tempNode.next = new _Node(item, null, tempNode);
     }
     this.size++
   }
@@ -89,7 +90,6 @@ class LinkedList {
       return;
     }
 
-    // {Question} Why can't newNode be this.head like in insertFirst previous functions?
     const newNode = new _Node(item);
     let currentNode = this.head;
     let previousNode = this.head;
@@ -127,86 +127,10 @@ class LinkedList {
     while (currentNode !== null && currentNode.value !== existingItem) {
       currentNode = currentNode.next;
     }
-    // {Question} Why can't lines 124 and 125 be switched?
+
     newNode.next = currentNode.next;
     currentNode.next = newNode;
     this.size++;
-  }
-
-  display() {
-    let currentNode = this.head;
-    
-    if (!this.head) {
-      return null;
-    }
-
-    let list = [];
-
-    while (currentNode.next !== null) {
-        list.push(currentNode.value);
-        currentNode = currentNode.next;
-      }
-      
-    list.push(currentNode.value);
-    return console.log(list);
-  }
-
-  isEmpty() {
-    if (!this.head) {
-      return console.log("List is empty.");
-    }
-
-    if (this.head) {
-      return null;
-    }
-  }
-
-  listSize() {
-    let currentNode = this.head;
-
-    if (!this.head) {
-      return console.log(`Size: 0`);
-    }
-
-    let list = [];
-
-    while (currentNode.next !== null) {
-      if (currentNode.next == null) {
-        list.push(currentNode.value);
-      } else {
-        list.push(currentNode.value);
-        currentNode = currentNode.next;
-      }
-    }
-
-    let count = 0
-    for (let i = 0; i <= list.length; i++) {
-      count++;
-    }
-
-    return console.log(`size: ${count}`)
-  }
-
-  findPrevious(item) {
-    let currentNode = this.head;
-    let previousNode = this.head;
-
-    while (currentNode.value !== item) {
-      previousNode = currentNode;
-      currentNode = currentNode.next;
-    }
-
-    console.log(`${item}'s previous node: ${previousNode.value}`)
-  }
-
-  findLast() {
-    let currentNode = this.head;
-
-    while (currentNode.next !== null) {
-      currentNode = currentNode.next;
-    }
-
-    console.log(`last node: ${currentNode.value}`)
   }
 }
 

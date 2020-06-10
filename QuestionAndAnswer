@@ -1,0 +1,37 @@
+Analyze the following function (without running it in an IDE) to determine what problem it is trying to solve. What is the time complexity of this algorithm?
+
+  function WhatDoesThisProgramDo(lst) {
+
+    // current equals last head...
+    let current = lst.head;
+
+    // while current is not null...
+    while (current !== null) {
+
+        // current is declared as newNode...
+        let newNode = current;
+
+        // while the next node is not null... while newNode is not the last node in the list...
+        while (newNode.next !== null) {
+
+            // if current equals newNode.next...
+            if (newNode.next.value === current.value) {
+
+                // skip a node...
+                newNode.next = newNode.next.next;
+            }
+            // don't skip a node...
+            else {
+                newNode = newNode.next;
+            }
+        }
+        // traverse linearly...
+        current = current.next;
+    }
+  }
+
+    This function removes duplicates.
+    newNode.next = newNode.next.next skips duplicate values using the IF statement, "if (newNode.next.value === current.value)".
+
+    Nested loops
+    Polynomial O(n^2)
