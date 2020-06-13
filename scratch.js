@@ -1,43 +1,76 @@
-var sortList = function (head) {
-  if (head === null || head.next === null) {
-    return head;
+const _Node = require("./Node");
+const LinkedList = require("./LinkedLists");
+
+mergeSort = (SLL) => {
+  let list = SLL.head;
+
+  if (list.next === null) {
+    return list;
   }
 
-  let prev = null;
-  let slow = head;
-  let fast = head;
+  let count = 0;
+  let countList = list;
+  let leftPart = list;
+  let leftPointer = list;
+  let rightPart = null;
+  let rightPointer = null;
 
-  while (fast !== null && fast.next !== null) {
-    fast = fast.next.next;
-    prev = slow;
-    slow = slow.next;
+  while (countList.next !== null) {
+    count++;
+    countList = countList.next;
   }
 
-  // close first half list
-  prev.next = null;
+  let mid = Math.floor(count / 2);
+  let count2 = 0;
 
-  const l1 = sortList(head);
-  const l2 = sortList(slow);
-  return merge(l1, l2);
-};
+  while (count2 < mid) {
+    count2++;
+    leftPointer = leftPointer.next;
+  }
 
-function merge(l1, l2) {
-  const head = new ListNode();
-  let current = head;
+  rightPart = new LinkedList(leftPointer.next);
+  leftPointer.next = null;
 
-  while (l1 !== null && l2 !== null) {
-    if (l1.val < l2.val) {
-      current.next = l1;
-      l1 = l1.next;
+  return _mergeSort(mergeSort(leftPart), mergeSort(rightPart));
+}
+
+_mergeSort = (left, right) => {
+  let result = new LinkedList();
+
+  let resultPointer = result.head;
+  let pointerLeft = left;
+  let pointerRight = right;
+
+  while (pointerLeft && pointerRight) {
+    let tempNode = null;
+
+    if (pointerLeft.node > pointerRight.node) {
+      tempNode = pointerRight.node;
+      pointerRight = pointerRight.next;
     } else {
-      current.next = l2;
-      l2 = l2.next;
+      tempNode = pointerLeft.node;
+      pointerLeft = pointerLeft.next;
     }
 
-    current = current.next;
+    if (result.head == null) {
+      result.head = new _Node(tempNode);
+      resultPointer = result.head;
+    } else {
+      resultPointer.next = new _Node(tempNode);
+      resultPointer = resultPointer.next
+    }
   }
 
-  current.next = (l1 === null) ? l2 : l1;
+  resultPointer.next = pointerLeft;
+  while (resultPointer.next) {
+    resultPointer = resultPointer.next;
+    resultPointer.next = pointerRight;
 
-  return head.next;
+    return result.head;
+  }
 }
+
+module.exports = { mergeSort }
+
+// Reference:
+// https://www.geeksforgeeks.org/merge-sort-linked-lists-javascript/

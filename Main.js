@@ -10,16 +10,24 @@ const { reverse } = require("./Reverse");
 const { middle } = require("./Middle");
 const { insertionSort } = require("./InsertionSort");
 const { sortList } = require("./MergeSort");
+const { mergeSort } = require("./Scratch");
 
 function main() {
   let SLL = new LinkedList();
 
+  //SLL.insertFirst("Apollo");
+  //SLL.insertLast("Boomer");
+  //SLL.insertLast("Helo");
+  //SLL.insertLast("Husker");
+  //SLL.insertLast("Starbuck");
+  //SLL.insertLast("Tauhida");
+
   SLL.insertFirst(5);
-  SLL.insertLast(7);
   SLL.insertLast(9);
-  SLL.insertLast(10);
-  SLL.insertLast(1);
+  SLL.insertLast(8);
   SLL.insertLast(3);
+  SLL.insertLast(1);
+  SLL.insertLast(7);
 
   // Find
   //SLL.find("Husker");
@@ -55,21 +63,15 @@ function main() {
   //findLast(SLL);
 
   // Reverse
-  //reverse(SLL);
+  reverse(SLL);
+  display(SLL);
 
   // Insertion sort
-  //let sorted = insertionSort(SLL);
-  //while (sorted !== null) {
-  //  console.log(sorted.value);
-  //  sorted = sorted.next;
-  //}
+  //insertionSort(SLL);
+  //display(SLL);
 
   // Merge sort
-  let sorted = sortList(SLL);
-  while (sorted !== null) {
-    console.log(sorted.value);
-    sorted = sorted.next;
-  }
+  //mergeSort(SLL);
 
   return SLL;
 }

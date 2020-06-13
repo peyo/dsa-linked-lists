@@ -5,15 +5,12 @@ display = (SLL) => {
     return null;
   }
 
-  let list = [];
-
-  while (currentNode.next !== null) {
-    list.push(currentNode.value);
+  while (currentNode !== null) {
+    console.log(currentNode.value);
     currentNode = currentNode.next;
   }
-
-  list.push(currentNode.value);
-  return console.log(list);
+  
+  return;
 };
 
 isEmpty = (SLL) => {

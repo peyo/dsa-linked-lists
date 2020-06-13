@@ -5,33 +5,44 @@ Write an algorithm to reverse a linked list. The time complexity of your algorit
 */
 
 // Iterative
+/*
 reverse = (SLL) => {
-  let prev = null
-  let curr = SLL.head
-  let next = null
+  let prev = null;
+  let curr = SLL.head;
+  let next = null;
 
   while (curr !== null) {
     next = curr.next;
     curr.next = prev;
+    curr.prev = next;
     prev = curr;
     curr = next;
   }
 
+  SLL.head = prev
   return prev;
 }
+*/
 
 // Recursive
-/*
+
 reverse = (SLL) => {
-  if (SLL.head == null || SLL.head.next == null) {
-   return head; 
+  let curr = SLL.head
+
+  if (!curr) {
+    return;
   }
 
-  let curr = reverse(SLL.head.next);
-  SLL.head.next.next = SLL.head;
-  SLL.head.next = undefined;
-  return curr;
+  if (!curr.next) {
+    SLL.head = curr;
+    return;
+  }
+
+  let tmp = reverse(curr.next);
+  curr.next.next = curr;
+  curr.next = null;
+  return tmp;
 }
-*/
+
 
 module.exports = { reverse };

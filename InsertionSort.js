@@ -11,23 +11,21 @@ Write an algorithm that will sort a given linked list. For example given a list 
 insertionSort = (SLL) => {
   let result = null;
   let curr = SLL.head;
-  let next;
+  let next = null;
 
-  // Iterate the loop.
   while (curr !== null) {
     next = curr.next;
 
-    // Sort the linked list until the current value and store it.
     result = sortedInsert(result, curr);
     curr = next;
   }
 
+  SLL.head = result;
   return result;
 }
 
 // Sorting the list.
 let sortedInsert = (sorted, newNode) => {
-  console.log(sorted);
   // Temporary node to swap the elements.
   let temp = new _Node();
   let curr = temp;
@@ -41,9 +39,13 @@ let sortedInsert = (sorted, newNode) => {
   // Swap the elements
   newNode.next = curr.next;
   curr.next = newNode;
+  newNode.prev = curr.prev;
 
   // Return the sorted list.
   return temp.next;
 }
 
 module.exports = { insertionSort };
+
+// Resource:
+// https://learnersbucket.com/examples/algorithms/sorting-a-linked-list/

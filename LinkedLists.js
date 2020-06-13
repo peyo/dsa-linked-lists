@@ -29,7 +29,6 @@ class LinkedList {
       while (tempNode.next !== null) {
         tempNode = tempNode.next;
       }
-      // *** I have no idea why prev becomes [Circular] ***
       tempNode.next = new _Node(item, null, tempNode);
     }
     this.size++
