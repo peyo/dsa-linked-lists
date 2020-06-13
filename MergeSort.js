@@ -1,67 +1,97 @@
-// Time complexity: O(n log n)
-// Space complexity: O(n)
-
+const LinkedList = require("./LinkedLists");
 const _Node = require("./Node");
 
-function sortList(SLL) {
-  let head = SLL.head;
-  if (!head || !head.next) {
-    // Return head if there is no head or no head.next.
-    return head;
+mergeSort = (list) => {
+  if (list.next === null)
+    return list;
+
+  let count = 0;
+  let countList = list
+  let leftPart = list;
+  let leftPointer = list;
+  let rightPart = null;
+  let rightPointer = null;
+
+  // Counting the nodes in the received linkedlist 
+  while (countList.next !== null) {
+    count++;
+    countList = countList.next;
   }
 
-  let fast = head,
-    slow = head;
-  // While fast.next and fast.next.next is not null...
-  while (fast.next && fast.next.next) {
-    // Traverse...
-    fast = fast.next.next;
-    slow = slow.next;
+  // Counting the mid of the linked list 
+  let mid = Math.floor(count / 2)
+  let count2 = 0;
+
+  // Separating the left and right part with 
+  // respect to mid node in tke linked list 
+  while (count2 < mid) {
+    count2++;
+    leftPointer = leftPointer.next;
   }
 
-  let middle = slow.next;
-  slow.next = null;
-  return merge(sortList(head), sortList(middle));
+  rightPart = new LinkedList(leftPointer.next);
+  leftPointer.next = null;
+
+  // Here are two linked list which 
+  // contains the left most nodes and right 
+  // most nodes of the mid node 
+  return this._mergeSort(this.mergeSort(leftPart),
+    this.mergeSort(rightPart.head))
 }
 
-const merge = (n, m) => {
-  // dummy and temp
-  let d = new _Node(-1);
-  let tmp = d;
+// Merging both lists in sorted manner 
+_mergeSort = (left, right) => {
 
-  // This is merging the lists based on if < is true or false.
-  // While n and m are not null...
-  while (n && m) {
-    // When n is less than m, tmp.next is equal to:
-    // when True: n
-    // when False: m
-    tmp.next = n.val < m.val
-      ? n
-      : m;
-    // Traverse...
-    tmp = tmp.next;
+  // Create a new empty linked list 
+  let result = new LinkedList()
 
-    // If n is less than m...
-    if (n.val < m.val) {
-      // Traverse n to n.next because n would've been set as tmp...
-      n = n.next;
-    } else {
-      // Else traverse m to m.next because m would've been set as tmp...
-      m = m.next;
+  let resultPointer = result.head;
+  let pointerLeft = left;
+  let pointerRight = right;
+
+
+  // If true then add left most node value in result, 
+  // increment left pointer else do the same in 
+  // right linked list. 
+  // This loop will be executed until pointer's of 
+  // a left node or right node reached null 
+  while (pointerLeft && pointerRight) {
+    let tempNode = null;
+
+    // Check if the right node's value is greater than 
+    // left node's value 
+    if (pointerLeft.node > pointerRight.node) {
+      tempNode = pointerRight.node
+      pointerRight = pointerRight.next;
+    }
+    else {
+      tempNode = pointerLeft.node
+      pointerLeft = pointerLeft.next;
+    }
+
+    if (result.head == null) {
+      result.head = new _Node(tempNode)
+      resultPointer = result.head
+    }
+    else {
+      resultPointer.next = new _Node(tempNode)
+      resultPointer = resultPointer.next
     }
   }
 
-  // If the last node that is remaining is n, then set tmp.next as n.
-  if (n) {
-    tmp.next = n;
-  }
+  // Add the remaining elements in the last of resultant 
+  // linked list 
+  resultPointer.next = pointerLeft;
+  while (resultPointer.next)
+    resultPointer = resultPointer.next
 
-  // If the last node that is remaining is m, then set tmp.next as m.
-  if (m) {
-    tmp.next = m;
-  }
+  resultPointer.next = pointerRight
 
-  return d.next;
-};
+  // Result is  the new sorted linked list 
+  return result.head;
+} 
 
-module.exports = { sortList };
+module.exports = { mergeSort }
+
+// Reference:
+// https://www.geeksforgeeks.org/merge-sort-linked-lists-javascript/

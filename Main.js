@@ -9,8 +9,7 @@ const {
 const { reverse } = require("./Reverse");
 const { middle } = require("./Middle");
 const { insertionSort } = require("./InsertionSort");
-const { sortList } = require("./MergeSort");
-const { mergeSort } = require("./Scratch");
+const { mergeSort } = require("./MergeSort");
 
 function main() {
   let SLL = new LinkedList();
@@ -63,15 +62,18 @@ function main() {
   //findLast(SLL);
 
   // Reverse
-  reverse(SLL);
-  display(SLL);
+  // Recursively reversing is not working...
+  //reverse(SLL);
+  //display(SLL);
 
   // Insertion sort
   //insertionSort(SLL);
   //display(SLL);
 
   // Merge sort
-  //mergeSort(SLL);
+  // Not working...
+  mergeSort(SLL);
+  display(SLL);
 
   return SLL;
 }
