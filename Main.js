@@ -25,8 +25,8 @@ function main() {
   SLL.insertLast(9);
   SLL.insertLast(8);
   SLL.insertLast(3);
-  SLL.insertLast(1);
-  SLL.insertLast(7);
+  //SLL.insertLast(1);
+  //SLL.insertLast(7);
 
   // Find
   //SLL.find("Husker");
@@ -61,8 +61,12 @@ function main() {
   // Find last
   //findLast(SLL);
 
-  // Reverse
+  // Recursively Reverse
   // Recursively reversing is not working...
+  const result = reverse(SLL.head);
+  console.log(result);
+
+  // Iteratively Reverse
   //reverse(SLL);
   //display(SLL);
 
@@ -72,12 +76,12 @@ function main() {
 
   // Merge sort
   // Not working...
-  mergeSort(SLL);
-  display(SLL);
+  //mergeSort(SLL);
+  //display(SLL);
 
   return SLL;
 }
 
-console.log(main());
+return main();
 
 module.exports = main

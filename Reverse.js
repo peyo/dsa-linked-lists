@@ -5,6 +5,7 @@ Write an algorithm to reverse a linked list. The time complexity of your algorit
 */
 
 // Iterative
+/*
 reverse = (SLL) => {
   let prev = null;
   let curr = SLL.head;
@@ -21,26 +22,21 @@ reverse = (SLL) => {
   SLL.head = prev
   return prev;
 }
+*/
 
 // Recursive
-/* Super close but this isn't working...
-reverse = (SLL) => {
-  let curr = SLL.head
-
-  if (!curr) {
-    return;
+reverse = (curr, prev = null) => {
+  if (!curr) { 
+    return prev;
   }
 
-  if (!curr.next) {
-    SLL.head = curr;
-    return;
-  }
-
-  let tmp = reverse(curr.next);
-  curr.next.next = curr;
-  curr.next = null;
+  let tmp = reverse(curr.next, curr);
+  
+  const temp = curr.next;
+  curr.next = prev;
+  curr.prev = temp;
+  
   return tmp;
 }
-*/
 
 module.exports = { reverse };
